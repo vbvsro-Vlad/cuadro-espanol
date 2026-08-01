@@ -5,7 +5,7 @@ const database = [
     { start: 11.2, end: 17.5, es: "La rutina diaria Esas acciones que repetimos cada mañana cada tarde cada noche", ru: "Повседневная рутина. Те действия, которые мы повторяем каждое утро, каждый день, каждый вечер." },
     { start: 17.5, end: 23.2, es: "Sin pensar En piloto automatico Pero que dicen muchisimo sobre quienes somos", ru: "Не задумываясь. На автопилоте. Но которые очень многое говорят о том, кто мы такие." },
     { start: 23.2, end: 28.1, es: "Si estas aprendiendo espanol este episodio es perfecto para ti", ru: "Если вы учите испанский, этот эпизод идеален для вас." },
-    { start: 28.1, end: 35.3, es: "Vocabulario del dia a dia verbos reflexivos expresiones naturales para hablar de tu rutina en espanol", ru: "Повседневная лексика, возвратные глаголы, естественные выражения для описания вашей повседневной жизни на испанском языке." },
+    { start: 28.1, end: 35.3, es: "Vocabulario del dia a dia verbos reflexivos expresiones naturales para hablar de tu rutina en espanol", ru: "Слова на каждый день, возвратные глаголы, естественные выражения, чтобы говорить о своей рутине на испанском." },
     { start: 35.3, end: 44, es: "Sin listas aburridas solo conversacion real entre dos personas reales Asi que escucha relajate y vamos alla", ru: "Без скучных списков, только реальный разговор между двумя реальными людьми. Так что слушай, расслабься и погнали." },
     { start: 44, end: 45.1, es: "Vamos alla", ru: "Погнали." },
     { start: 45.1, end: 50, es: "Oye Lucia antes de empezar quiero preguntarte algo muy concreto", ru: "Послушай, Люсия, перед тем как начать, я хочу спросить тебя об одной очень конкретной вещи." },
@@ -20,3 +20,4 @@ const database = [
     { start: 76.9, end: 78, es: "Por que magia", ru: "Почему магия?" },
     { start: 78, end: 87.5, es: "Porque yo soy exactamente lo contrario Soy de noches Y levantarme por la mañana es una de las experiences mas dificiles de mi vida", ru: "Потому что я прямая противоположность. Я ночной человек. И вставать по утрам — это одно из самых тяжёлых испытаний в моей жизни." }
 ];
+
