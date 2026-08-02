@@ -15,7 +15,7 @@ const database = [
     { start: 58.4, end: 61.1, es: "Y bien cual eres", ru: "Ну и какая же ты?" },
     { start: 61.1, end: 64.1, es: "De mañanas Totalmente de mañanas", ru: "Утренняя. Абсолютно утренняя." },
     { start: 64.1, end: 66.3, es: "En serio sin problema", ru: "Серьёзно? Без проблем?" },
-    { start: 66.3, end: 74.5, es: "Sin ningun problema Me levanto y en 10 minutos ya estoy activa Ya estoy pensando ya tengo ganas de hacer cosas", ru: "Без каких-либо проблем. Я встаю и через 10 минут я уже активна. Уже думаю, уже хочется что-то делать." },
+    { start: 66.3, end: 74.5, es: "Sin ningun problema Me levanto y en diez minutos ya estoy activa Ya estoy pensando ya tengo ganas de hacer cosas", ru: "Без каких-либо проблем. Я встаю и через десять минут я уже активна. Уже думаю, уже хочется что-то делать." },
     { start: 74.9, end: 76.7, es: "Eso me parece magia", ru: "Это кажется мне магией." },
     { start: 76.9, end: 78, es: "Por que magia", ru: "Почему магия?" },
     { start: 78, end: 87.5, es: "Porque yo soy exactamente lo contrario Soy de noches Y levantarme por la mañana es una de las experiences mas dificiles de mi vida", ru: "Потому что я прямая противоположность. Я ночной человек. И вставать по утрам — это одно из самых тяжёлых испытаний в моей жизни." }
