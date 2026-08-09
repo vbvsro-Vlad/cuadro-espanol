@@ -1,0 +1,25 @@
+// БЛОК 2: БИТВА С БУДИЛЬНИКАМИ (ОТРЕЗОК 1:18 - 2:54)
+const database = [
+    { start: 78, end: 87.4, es: "Porque yo soy exactamente lo contrario Soy de noches y levantarme por la mañana es una de las experiencias mas dificiles de mi vida", ru: "Потому что я прямая противоположность. Я ночной человек, и вставать по утрам — это одно из самых тяжёлых испытаний в моей жизни." },
+    { start: 87.5, end: 89, es: "Cada dia", ru: "Каждый день?" },
+    { start: 89, end: 94, es: "Cada dia sin excepcion Cada mañana es una batalla", ru: "Каждый день, без исключения. Каждое утро — это битва." },
+    { start: 95, end: 97, es: "Una batalla contra el despertador", ru: "Битва против будильника." },
+    { start: 97.1, end: 102.4, es: "Contra el despertador contra la almohada contra el frio contra todo", ru: "Против будильника, против подушки, против холода, против всего." },
+    { start: 102.4, end: 104.3, es: "Y cuantas alarmas tienes", ru: "И сколько у тебя будильников?" },
+    { start: 105, end: 106.7, es: "Prefiero no decirlo", ru: "Предпочитаю не говорить." },
+    { start: 106.7, end: 107.5, es: "Dimelo", ru: "Скажи мне." },
+    { start: 107.5, end: 108.5, es: "Sip", ru: "Ага / Ну да (согласие)." },
+    { start: 108.7, end: 109.8, es: "Cinco alarmas", ru: "Пять будильников?" },
+    { start: 109.9, end: 117, es: "Cinco alarmas estrategicamente programadas para prepararme mentalmente para el momento de levantarme", ru: "Пять будильников, стратегически запрограммированных, чтобы морально подготовить себя к моменту подъёма." },
+    { start: 117, end: 120.2, es: "Cinco alarmas y aun asi te cuesta", ru: "Пять будильников, и всё равно тебе тяжело?" },
+    { start: 120.3, end: 127, es: "Aun asi me cuesta La quinta es la que funciona Las cuatro primeras son preparacion psicologica", ru: "Всё равно тяжело. Пятый — это тот, который срабатывает. Первые четыре — это психологическая подготовка." },
+    { start: 127.1, end: 134, es: "Preparacion psicologica eso es lo mas creativo que he escuchado para justificar cinco alarmas", ru: "Психологическая подготовка. Это самое креативное оправдание пяти будильникам, что я слышал." },
+    { start: 134, end: 139.6, es: "Es completamente verdad Sin esas cuatro alarmas previas la quinta me mataria", ru: "Это чистая правда. Без этих четырёх предварительных будильников пятый меня бы убил." },
+    { start: 139.7, end: 146.6, es: "Bueno hoy hablamos de todo eso De como empieza nuestro dia como transcurre como termina", ru: "Что ж, сегодня мы поговорим обо всём этом. О том, как начинается наш день, как проходит, как заканчивается." },
+    { start: 146.7, end: 150.2, es: "Y de como explicarlo en espanol de manera natural", ru: "И о том, как объяснить это на испанском естественным образом." },
+    { start: 150.2, end: 155.3, es: "Entonces Pablo cuentame Desde que suena la quinta alarma que pasa", ru: "Тогда, Пабло, расскажи мне. С того момента, как звенит пятый будильник, что происходит?" },
+    { start: 155.4, end: 163, es: "Desde que suena la quinta alarma bueno me quedo unos 30 segundos inmovil procesando que es de dia", ru: "С тех пор, как звенит пятый будильник... ну, я остаюсь неподвижным около 30 секунд, осознавая, что уже день." },
+    { start: 163.5, end: 166.8, es: "Esa transicion entre el sueno y la realidad", ru: "Этот переход между сном и реальностью." },
+    { start: 166.9, end: 171.2, es: "Y luego me siento en la cama despacio sin movimientos bruscos", ru: "А потом я сажусь на кровать, медленно, без резких движений." },
+    { start: 171.3, end: 174, es: "Y por que sin movimientos bruscos", ru: "А почему без резких движений?" }
+];
