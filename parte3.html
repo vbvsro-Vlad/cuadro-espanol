@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аудио-Диктант PRO: Часть 3 ☕</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0b0f19;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        .container {
+            background: #151d30;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(46, 134, 222, 0.2);
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+            border: 1px solid #233554;
+        }
+        h2 { color: #54a0ff; margin-top: 0; font-size: 1.5rem; }
+        .audio-card {
+            background: #0b0f19;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #233554;
+        }
+        audio { width: 100%; margin-top: 10px; }
+        .controls-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .control-btn {
+            flex: 1;
+            background: #233554;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+        .control-btn:hover { background: #1e3c72; }
+        .dictation-zone {
+            background: #1f2d4d;
+            padding: 22px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #54a0ff;
+            text-align: left;
+        }
+        .step-info {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #54a0ff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .hint-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #f5f6fa;
+            min-height: 40px;
+            line-height: 1.6;
+        }
+        .word-span {
+            display: inline-block;
+            margin-right: 5px;
+            transition: background-color 0.1s, color 0.1s;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .word-highlight {
+            background-color: #f1c40f !important;
+            color: #11141a !important;
+            font-weight: bold;
+            box-shadow: 0 0 8px #f1c40f;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #3b5998;
+            background-color: #0b0f19;
+            color: white;
+            border-radius: 8px;
+            font-size: 1.15rem;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #54a0ff;
+            outline: none;
+        }
+        .action-btn {
+            background-color: #54a0ff;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.15rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-bottom: 10px;
+        }
+        .action-btn:hover { background-color: #2e86de; }
+        .giveup-btn {
+            background-color: #ee5253;
+            color: white;
+            border: none;
+            padding: 11px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+            display: none;
+        }
+        .giveup-btn:hover { background-color: #d63031; }
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            min-height: 25px;
+        }
+        .correct { color: #10ac84; }
+        .incorrect { color: #ee5253; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Слуховой Интенсив: Блок 3 ☕</h2>
+    
+    <div class="audio-card">
+        <div style="font-size: 0.85rem; color: #84817a;">Файл: audio.mp3</div>
+        <audio id="player" src="audio.mp3" controls></audio>
+    </div>
+
+    <div class="controls-row">
+        <button class="control-btn" onclick="playCurrentSegment()">🔁 Переслушать поток</button>
+    </div>
+
+    <div class="dictation-zone">
+        <div class="step-info" id="step-label">Загрузка...</div>
+        <div class="hint-text" id="prompt-display">Нажмите «ВКЛЮЧИТЬ ДИКТАНТ»</div>
+    </div>
+
+    <input type="text" id="user-input" placeholder="Слушайте и вводите испанский текст..." autocomplete="off" disabled>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <button class="control-btn" style="flex: 0.3; background-color: #34495e;" onclick="navigateStep(-1)">◀ Назад</button>
+        <button class="action-btn" id="main-btn" style="flex: 1; margin-bottom: 0;" onclick="initDictation()">ВКЛЮЧИТЬ ДИКТАНТ</button>
+        <button class="control-btn" style="flex: 0.3; background-color: #34495e;" onclick="navigateStep(1)">Вперед ▶</button>
+    </div>
+    
+    <button class="control-btn" id="repeat-karaoke-btn" style="background-color: #9b59b6; margin-bottom: 10px; display: none;" onclick="repeatKaraokeOnly()">🔁 Повторить караоке-подсветку</button>
+    <button class="giveup-btn" id="giveup-btn" onclick="showCorrectAnswer()">🏳️ Сдаюсь / Показать ответ</button>
+    
+    <div class="feedback" id="feedback-zone"></div>
+</div>
+
+<script>
+    let currentStep = 0;
+    let isCheckingStage = false;
+    let checkInterval = null;
+    let hasCheckedCurrent = false;
+
+    const player = document.getElementById('player');
+    const userInput = document.getElementById('user-input');
+    const mainBtn = document.getElementById('main-btn');
+    const giveUpBtn = document.getElementById('giveup-btn');
+    const repeatKaraokeBtn = document.getElementById('repeat-karaoke-btn');
+    const feedbackZone = document.getElementById('feedback-zone');
+    const promptDisplay = document.getElementById('prompt-display');
+    const stepLabel = document.getElementById('step-label');
+
+    window.onload = function() {
+        if (typeof database === 'undefined' || database.length === 0) {
+            promptDisplay.innerText = "❌ Ошибка: Внешний файл data3.js не найден или пуст в этой папке!";
+        } else {
+            stepLabel.innerText = `Загружено реплик: ${database.length}`;
+        }
+    };
+
+    function cleanString(str) {
+        return str.toLowerCase()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()¿?]/g, "")
+            .replace(/[áäà]/g, "a").replace(/[éëè]/g, "e")
+            .replace(/[íïì]/g, "i").replace(/[óöò]/g, "o")
+            .replace(/[úüù]/g, "u").replace(/ñ/g, "n")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function initDictation() {
+        currentStep = 0;
+        userInput.disabled = false;
+        triggerStep();
+    }
+
+    function navigateStep(direction) {
+        clearInterval(checkInterval);
+        player.pause();
+        let newStep = currentStep + direction;
+        if (newStep >= 0 && newStep < database.length) {
+            currentStep = newStep;
+            hasCheckedCurrent = false;
+            userInput.disabled = false; 
+            triggerStep();
+        }
+    }
+
+    function triggerStep() {
+        if (currentStep >= database.length) {
+            promptDisplay.innerText = "🏆 ПОТРЯСАЮЩЕ! Весь текущий текстовый блок пройден!";
+            userInput.disabled = true;
+            userInput.value = "";
+            stepLabel.innerText = "ФИНИШ БЛОКА";
+            mainBtn.innerText = "Начать блок заново";
+            mainBtn.onclick = initDictation;
+            giveUpBtn.style.display = "none";
+            repeatKaraokeBtn.style.display = "none";
+            clearInterval(checkInterval);
+            return;
+        }
+
+        stepLabel.innerText = `Реплика ${currentStep + 1} из ${database.length}`;
+        promptDisplay.innerText = "Слушайте реальный испанский поток и набирайте текст...";
+        feedbackZone.innerText = "";
+        userInput.value = "";
+        userInput.focus();
+        giveUpBtn.style.display = "none";
+        repeatKaraokeBtn.style.display = "none";
+        hasCheckedCurrent = false;
+
+        mainBtn.innerText = "Проверить реплику";
+        mainBtn.onclick = evaluateText;
+        isCheckingStage = true;
+
+        playCurrentSegment();
+    }
+
+    function playCurrentSegment() {
+        clearInterval(checkInterval);
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        
+        let targetIndex = hasCheckedCurrent ? currentStep - 1 : currentStep;
+        const segment = database[targetIndex];
+        
+        player.currentTime = segment.start;
+        player.play();
+
+        if (!hasCheckedCurrent) {
+            mainBtn.innerText = "Проверить реплику";
+            mainBtn.onclick = evaluateText;
+            isCheckingStage = true;
+        }
+
+        checkInterval = setInterval(() => {
+            if (player.currentTime >= segment.end) {
+                player.pause();
+                clearInterval(checkInterval);
+            }
+        }, 100);
+    }
+
+    function evaluateText() {
+        clearInterval(checkInterval);
+        player.pause();
+
+        const userClean = cleanString(userInput.value);
+        const correctClean = cleanString(database[currentStep].es);
+
+        if (userClean === correctClean || correctClean.includes(userClean) && userClean.length > 10) {
+            feedbackZone.innerHTML = "<span class='correct'>🎯 Идеально расслышано! Идем дальше.</span>";
+            hasCheckedCurrent = true;
+            speakWithKaraoke(database[currentStep].es);
+            currentStep++;
+            mainBtn.innerText = "Следующая реплика";
+            mainBtn.onclick = triggerStep;
+            giveUpBtn.style.display = "none";
+            isCheckingStage = false;
+        } else {
+            feedbackZone.innerHTML = `<span class='incorrect'>Не совпало. Подсказка-перевод: <b>"${database[currentStep].ru}"</b>. Переслушайте!</span>`;
+            mainBtn.innerText = "Переслушать этот кусок заново";
+            mainBtn.onclick = playCurrentSegment;
+            giveUpBtn.style.display = "block";
+        }
+    }
+
+    function showCorrectAnswer() {
+        clearInterval(checkInterval);
+        player.pause();
+        feedbackZone.innerHTML = "<span style='color: #ff9f43;'>Следите глазами за подсветкой слов!</span>";
+        hasCheckedCurrent = true;
+        speakWithKaraoke(database[currentStep].es);
+        currentStep++;
+        mainBtn.innerText = "Продолжить обучение (Дальше)";
+        mainBtn.onclick = triggerStep;
+        giveUpBtn.style.display = "none";
+        isCheckingStage = false;
+    }
+
+    function repeatKaraokeOnly() {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        let targetText = hasCheckedCurrent ? database[currentStep - 1].es : database[currentStep].es;
+        speakWithKaraoke(targetText);
+    }
+
+    function speakWithKaraoke(text) {
+        repeatKaraokeBtn.style.display = "block";
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const words = text.split(" ");
+            let htmlContent = "";
+            words.forEach((word, idx) => {
+                htmlContent += `<span class='word-span' id='word-${idx}'>${word}</span> `;
+            });
+            promptDisplay.innerHTML = htmlContent;
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.85;
+
+            const voices = window.speechSynthesis.getVoices();
+            const esVoice = voices.find(v => v.lang.includes('es'));
+            if (esVoice) utterance.voice = esVoice;
+
+            let wordIndex = 0;
+            utterance.onboundary = (event) => {
+                if (event.name === 'word') {
+                    document.querySelectorAll('.word-span').forEach(el => el.classList.remove('word-highlight'));
+                    const currentWordElement = document.getElementById(`word-${wordIndex}`);
+                    if (currentWordElement) {
+                        currentWordElement.classList.add('word-highlight');
+                        wordIndex++;
+                    }
+                }
+            };
+            utterance.onend = () => {
+                document.querySelectorAll('.word-span').forEach(el => el.classList.remove('word-highlight'));
+            };
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+    }
+
+    userInput.addEventListener("keyup", function(e) {
+        if (e.key === "Enter") {
+            if (isCheckingStage) evaluateText();
+            else triggerStep();
+        }
+    });
+</script>
+
+<script src="data3.js"></script>
+
+</body>
+</html>
