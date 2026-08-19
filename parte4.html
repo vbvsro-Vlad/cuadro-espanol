@@ -280,14 +280,15 @@
         }, 100);
     }
 
-    function evaluateText() {
+        function evaluateText() {
         clearInterval(checkInterval);
         player.pause();
 
         const userClean = cleanString(userInput.value);
         const correctClean = cleanString(database[currentStep].es);
 
-        if (userClean === correctClean || correctClean.includes(userClean) && userClean.length > 10) {
+        // БЕЗКОМПРОМИССНО: Полное совпадение букв на 100%. Пробелы прощаются автоматом.
+        if (userClean === correctClean) {
             feedbackZone.innerHTML = "<span class='correct'>🎯 Идеально расслышано! Идем дальше.</span>";
             hasCheckedCurrent = true;
             speakWithKaraoke(database[currentStep].es);
@@ -303,6 +304,7 @@
             giveUpBtn.style.display = "block";
         }
     }
+
 
     function showCorrectAnswer() {
         clearInterval(checkInterval);
