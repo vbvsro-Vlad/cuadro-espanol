@@ -18,7 +18,7 @@ const database = [
     { start: 139.7, end: 146.6, es: "Bueno hoy hablamos de todo eso De como empieza nuestro dia como transcurre como termina", ru: "Что ж, сегодня мы поговорим обо всём этом. О том, как начинается наш день, как проходит, как заканчивается." },
     { start: 146.7, end: 150.2, es: "Y de como explicarlo en espanol de manera natural", ru: "И о том, как объяснить это на испанском естественным образом." },
     { start: 150.2, end: 155.3, es: "Entonces Pablo cuentame Desde que suena la quinta alarma que pasa", ru: "Тогда, Пабло, расскажи мне. С того момента, как звенит пятый будильник, что происходит?" },
-    { start: 155.4, end: 163, es: "Desde que suena la quinta alarma bueno me quedo unos 30 segundos inmovil procesando que es de dia", ru: "С тех пор, как звенит пятый будильник... ну, я остаюсь неподвижным около 30 секунд, осознавая, что уже день." },
+    { start: 155.4, end: 163, es: "Desde que suena la quinta alarma bueno me quedo unos treinta segundos inmovil procesando que es de dia", ru: "С тех пор, как звенит пятый будильник... ну, я остаюсь неподвижным около 30 секунд, осознавая, что уже день." },
     { start: 163.5, end: 166.8, es: "Esa transicion entre el sueno y la realidad", ru: "Этот переход между сном и реальностью." },
     { start: 166.9, end: 171.2, es: "Y luego me siento en la cama despacio sin movimientos bruscos", ru: "А потом я сажусь на кровать, медленно, без резких движений." },
     { start: 171.3, end: 174, es: "Y por que sin movimientos bruscos", ru: "А почему без резких движений?" }
