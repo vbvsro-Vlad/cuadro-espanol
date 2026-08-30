@@ -19,7 +19,7 @@ const database = [
     { start: 247, end: 250, es: "Y como te preparas el cafe Rapido o con ritual", ru: "А как ты готовишь кофе? Быстро или с ритуалом?" },
     { start: 250.2, end: 255, es: "Con ritual Tengo una cafetera italiana de esas que van en el fuego", ru: "С ритуалом. У меня гейзерная кофеварка, из тех, что ставят на огонь." },
     { start: 255, end: 257.9, es: "La cafetera italiana clasica", ru: "Классическая гейзерная кофеварка." },
-    { start: 258, end: 266, es: "La cafetera moca y hay algo muy reconfortante en el sonido que hace when el cafe sube ese borboteo al final", ru: "Кофеварка мока, и есть что-то очень утешительное в звуке, который она издаёт, когда кофе поднимается, в этом бурлении в самом конце." },
+    { start: 258, end: 266, es: "La cafetera moca y hay algo muy reconfortante en el sonido que hace cuando el cafe sube ese borboteo al final", ru: "Кофеварка мока, и есть что-то очень утешительное в звуке, который она издаёт, когда кофе поднимается, в этом бурлении в самом конце." },
     { start: 266, end: 268.7, es: "Ese sonido si que es un activador", ru: "Этот звук действительно пробуждает." },
     { start: 268.8, end: 279, es: "Un activador sensorial y el olor Cuando el cafe empieza a subir y el olor llena la cocina algo en mi se activa aunque todavia este medio dormido", ru: "Сенсорный активатор, и запах. Когда кофе начинает подниматься и запах наполняет кухню, во мне что-то просыпается, хотя я всё ещё полусонный." },
     { start: 279.5, end: 283.5, es: "El olfato como el primer sentido que despierta del todo", ru: "Обоняние как первое чувство, которое просыпается полностью." },
