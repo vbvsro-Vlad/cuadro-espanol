@@ -258,7 +258,6 @@
 
     function playCurrentSegment() {
         clearInterval(checkInterval);
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         
         let targetIndex = hasCheckedCurrent ? currentStep - 1 : currentStep;
         const segment = database[targetIndex];
@@ -291,7 +290,7 @@
         if (userClean === correctClean) {
             feedbackZone.innerHTML = "<span class='correct'>🎯 Идеально расслышано! Идем дальше.</span>";
             hasCheckedCurrent = true;
-            speakWithKaraoke(database[currentStep].es);
+            speakWithKaraoke(currentStep);
             currentStep++;
             mainBtn.innerText = "Следующая реплика";
             mainBtn.onclick = triggerStep;
@@ -311,7 +310,7 @@
         player.pause();
         feedbackZone.innerHTML = "<span style='color: #ff9f43;'>Следите глазами за подсветкой слов!</span>";
         hasCheckedCurrent = true;
-        speakWithKaraoke(database[currentStep].es);
+        speakWithKaraoke(currentStep);
         currentStep++;
         mainBtn.innerText = "Продолжить обучение (Дальше)";
         mainBtn.onclick = triggerStep;
@@ -320,50 +319,72 @@
     }
 
     function repeatKaraokeOnly() {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        let targetText = hasCheckedCurrent ? database[currentStep - 1].es : database[currentStep].es;
-        speakWithKaraoke(targetText);
+        let targetIndex = hasCheckedCurrent ? currentStep - 1 : currentStep;
+        speakWithKaraoke(targetIndex);
     }
 
-    function speakWithKaraoke(text) {
+    function speakWithKaraoke(segmentIndex) {
+        const segment = database[segmentIndex];
+        if (!segment) return;
+
         repeatKaraokeBtn.style.display = "block";
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const words = text.split(" ");
-            let htmlContent = "";
-            words.forEach((word, idx) => {
-                htmlContent += `<span class='word-span' id='word-${idx}'>${word}</span> `;
-            });
-            promptDisplay.innerHTML = htmlContent;
+        
+        // Разбиваем испанский текст на слова
+        const words = segment.es.split(" ");
+        let htmlContent = "";
+        words.forEach((word, idx) => {
+            htmlContent += `<span class='word-span' id='word-${idx}'>${word}</span> `;
+        });
+        promptDisplay.innerHTML = htmlContent;
 
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.rate = 0.85;
+        // Вычисляем длительность сегмента
+        const duration = segment.end - segment.start;
+        
+        // Вычисляем среднюю длительность одного слова (для равномерной подсветки)
+        const wordDuration = duration / words.length;
 
-            const voices = window.speechSynthesis.getVoices();
-            const esVoice = voices.find(v => v.lang.includes('es'));
-            if (esVoice) utterance.voice = esVoice;
+        // Устанавливаем время начала воспроизведения
+        player.currentTime = segment.start;
+        player.play();
 
-            let wordIndex = 0;
-            utterance.onboundary = (event) => {
-                if (event.name === 'word') {
-                    document.querySelectorAll('.word-span').forEach(el => el.classList.remove('word-highlight'));
-                    const currentWordElement = document.getElementById(`word-${wordIndex}`);
-                    if (currentWordElement) {
-                        currentWordElement.classList.add('word-highlight');
-                        wordIndex++;
-                    }
+        let currentWordIndex = 0;
+        const allWordElements = document.querySelectorAll('.word-span');
+
+        // Функция подсветки текущего слова
+        const highlightWord = () => {
+            if (player.paused || player.ended) {
+                clearInterval(highlightInterval);
+                allWordElements.forEach(el => el.classList.remove('word-highlight'));
+                return;
+            }
+
+            const elapsedInSegment = player.currentTime - segment.start;
+            
+            // Определяем текущий индекс слова на основе прошедшего времени
+            const newIndex = Math.floor(elapsedInSegment / wordDuration);
+
+            if (newIndex !== currentWordIndex && newIndex >= 0 && newIndex < words.length) {
+                // Снимаем подсветку со всех слов
+                allWordElements.forEach(el => el.classList.remove('word-highlight'));
+                
+                // Подсвечиваем текущее слово
+                const currentWordElement = document.getElementById(`word-${newIndex}`);
+                if (currentWordElement) {
+                    currentWordElement.classList.add('word-highlight');
+                    currentWordIndex = newIndex;
                 }
-            };
-            utterance.onend = () => {
-                document.querySelectorAll('.word-span').forEach(el => el.classList.remove('word-highlight'));
-            };
-            window.speechSynthesis.speak(utterance);
-        }
-    }
+            }
 
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+            // Если сегмент закончился
+            if (player.currentTime >= segment.end) {
+                player.pause();
+                clearInterval(highlightInterval);
+                allWordElements.forEach(el => el.classList.remove('word-highlight'));
+            }
+        };
+
+        // Запускаем интервал проверки подсветки
+        const highlightInterval = setInterval(highlightWord, 50);
     }
 
     userInput.addEventListener("keyup", function(e) {
