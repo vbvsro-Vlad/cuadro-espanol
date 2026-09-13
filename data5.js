@@ -1,4 +1,4 @@
-const dictationData5 = [
+const database = [
     {
         start: 410.00,
         end: 412.30,
@@ -8,32 +8,32 @@ const dictationData5 = [
     {
         start: 412.30,
         end: 417.80,
-        es: "Muy dificil Lo he intentado varias veces Acostarme antes для poder levantarme mejor",
+        es: "Muy dificil Lo he intentado varias veces Acostarme antes para poder levantarme mejor",
         ru: "Очень трудно. Я пробовал это несколько раз. Ложиться спать раньше, чтобы иметь возможность лучше вставать."
     },
     {
         start: 417.80,
         end: 421.90,
-        es: "Pero cuando me acuesto temprano no tengo sueno и me quedo dando vueltas",
+        es: "Pero cuando me acuesto temprano no tengo sueno y me quedo dando vueltas",
         ru: "Но когда я ложусь рано, у меня нет сна, и я продолжаю ворочаться."
     },
     {
         start: 421.90,
         end: 425.20,
-        es: "El cuerpo que tiene su propio ritmo и no quiere cambiarlo",
+        es: "El cuerpo que tiene su propio ritmo y no quiere cambiarlo",
         ru: "Тело, у которого есть свой собственный ритм, и оно не хочет его менять."
     },
     {
         start: 425.20,
         end: 429.60,
-        es: "Su propio reloj interno que en mi caso esta programado для las noches",
+        es: "Su propio reloj interno que en mi caso esta programado para las noches",
         ru: "Свои собственные внутренние часы, которые в моём случае запрограммированы на ночи."
     },
     {
         start: 429.60,
         end: 435.40,
-        es: "Oye hablemos de los verbos reflexivos porque son fundamentales для hablar de la rutina en espanol",
-        ru: "Послушай, дай поговорим о возвратных глаголах, потому что они важны, чтобы говорить о рутине на испанском."
+        es: "Oye hablemos de los verbos reflexivos porque son fundamentales para hablar de la rutina en espanol",
+        ru: "Послушай, давай поговорим о возвратных глаголах, потому что они важны, чтобы говорить о рутине на испанском."
     },
     {
         start: 435.40,
